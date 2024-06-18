@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 class JournalistController extends Controller
 {
     public function index()
-    {
-        $journalists = Journalist::with(['media', 'kzPeople'])->get();
-        return view('journalists.index', compact('journalists'));
-    }
+{
+    $journalists = Journalist::with(['media', 'kzPeople'])->get();
+    $kzPeople = KzPerson::all(); // Add this line
+    return view('journalists.index', compact('journalists', 'kzPeople')); // Update this line
+}
+
 
     public function create()
     {

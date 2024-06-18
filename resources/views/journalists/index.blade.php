@@ -45,20 +45,19 @@
         <input type="text" name="person" required>
         <button type="submit">Add Person</button>
     </form>
-   
-        @foreach($kzPeople as $kzPerson)
-            <div class="person-tag">
-                <form action="{{ route('journalists.editPerson', $kzPerson->id) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    <input type="text" name="person" value="{{ $kzPerson->person }}" required>
-                    <button type="submit">Edit</button>
-                </form>
-                <form action="{{ route('journalists.deletePerson', $kzPerson->id) }}" method="POST" style="display:inline-block;">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" onclick="return confirm('Are you sure you want to delete this person?')">Delete</button>
-                </form>
-            </div>
-        @endforeach
- 
+
+    @foreach($kzPeople as $kzPerson)
+        <div class="person-tag">
+            <form action="{{ route('journalists.editPerson', $kzPerson->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                <input type="text" name="person" value="{{ $kzPerson->person }}" required>
+                <button type="submit">Edit</button>
+            </form>
+            <form action="{{ route('journalists.deletePerson', $kzPerson->id) }}" method="POST" style="display:inline-block;">
+                @csrf
+                @method('DELETE')
+                <button type="submit" onclick="return confirm('Are you sure you want to delete this person?')">Delete</button>
+            </form>
+        </div>
+    @endforeach
 @endsection
