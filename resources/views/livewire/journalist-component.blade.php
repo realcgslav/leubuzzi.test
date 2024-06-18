@@ -11,7 +11,7 @@
     <button wire:click="create()" class="btn btn-primary">Add Journalist</button>
 
     @if($isOpen)
-        @include('livewire.create')
+        @include('livewire.create-journalist')
     @endif
 
     <table class="table table-bordered mt-5">
