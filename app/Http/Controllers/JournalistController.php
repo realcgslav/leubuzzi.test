@@ -99,45 +99,51 @@ class JournalistController extends Controller
         $data = $request->validate([
             'person' => 'required|string|max:255',
         ]);
-
+    
         $kzPerson = KzPerson::create($data);
-
+    
         if ($request->ajax()) {
-            return response()->json($kzPerson);
+            return response()->json([
+                'id' => $kzPerson->id,
+                'person' => $kzPerson->person,
+            ]);
         }
-
+    
         return redirect()->route('journalists.create')->with('success', 'Person added successfully.');
     }
-
+    
+    
     public function editPerson(Request $request, KzPerson $kzPerson)
     {
         $data = $request->validate([
             'person' => 'required|string|max:255',
         ]);
-
+    
         $kzPerson->update($data);
-
+    
         if ($request->ajax()) {
-            return response()->json($kzPerson);
+            return response()->json([
+                'id' => $kzPerson->id,
+                'person' => $kzPerson->person,
+            ]);
         }
-
+    
         return redirect()->route('journalists.index')->with('success', 'Person updated successfully.');
     }
-
+    
     public function deletePerson(Request $request, KzPerson $kzPerson)
-{
-    // Detach the KZ Person from all journalists
-    $kzPerson->journalists()->detach();
-
-    // Delete the KZ Person
-    $kzPerson->delete();
-
-    if ($request->ajax()) {
-        return response()->json(['success' => true]);
+    {
+        $personId = $kzPerson->id;
+        $kzPerson->journalists()->detach();
+        $kzPerson->delete();
+    
+        if ($request->ajax()) {
+            return response()->json(['success' => true, 'id' => $personId]);
+        }
+    
+        return redirect()->route('journalists.index')->with('success', 'Person deleted successfully.');
     }
-
-    return redirect()->route('journalists.index')->with('success', 'Person deleted successfully.');
-}
+    
 
 
     
