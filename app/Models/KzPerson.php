@@ -9,7 +9,7 @@ class KzPerson extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['person'];
+    protected $fillable = ['name'];
 
     public function journalists()
     {

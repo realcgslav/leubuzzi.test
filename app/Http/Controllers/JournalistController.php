@@ -11,8 +11,12 @@ class JournalistController extends Controller
 {
     public function index()
     {
-        $journalists = Journalist::with(['media', 'kzPeople'])->get();
-        $kzPeople = KzPerson::all(); // Ensure this line is present
+        // Retrieve journalists with their KZ people
+        $journalists = Journalist::with('kzPeople')->get();
+        
+        // Pass the kzPeople variable to the view
+        $kzPeople = KzPerson::all();
+
         return view('journalists.index', compact('journalists', 'kzPeople'));
     }
 

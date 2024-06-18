@@ -124,10 +124,8 @@
                         const personDiv = form.closest('.person-tag');
                         const personId = personDiv.dataset.id;
 
-                        document.getElementById('kz-person-select').querySelector(`option[value="${personId}"]`).remove();
                         personDiv.remove();
 
-                        // Update journalist rows
                         document.querySelectorAll('tr[data-journalist-id]').forEach(function(row) {
                             const kzPersonsCell = row.querySelector('.journalist-kz-persons');
                             const kzPersons = kzPersonsCell.textContent.split(', ').filter(person => person !== personId);

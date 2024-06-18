@@ -6,29 +6,21 @@ use Illuminate\Support\Facades\Schema;
 
 class CreateJournalistKzPeopleTable extends Migration
 {
-    /**
-     * Run the migrations.
-     *
-     * @return void
-     */
     public function up()
     {
         Schema::create('journalist_kz_people', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('journalist_id')->constrained()->onDelete('cascade');
-            $table->foreignId('kz_person_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('journalist_id');
+            $table->unsignedBigInteger('kz_person_id');
             $table->timestamps();
+
+            $table->foreign('journalist_id')->references('id')->on('journalists')->onDelete('cascade');
+            $table->foreign('kz_person_id')->references('id')->on('kz_people')->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     *
-     * @return void
-     */
     public function down()
     {
         Schema::dropIfExists('journalist_kz_people');
     }
 }
-

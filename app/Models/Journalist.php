@@ -22,7 +22,7 @@ class Journalist extends Model
         return $this->belongsToMany(Media::class, 'journalist_media');
     }
 
-    public function kzPeople()
+    public function kzPeople()  // Make sure this method name matches what you are calling in the controller
     {
         return $this->belongsToMany(KzPerson::class, 'journalist_kz_people');
     }
