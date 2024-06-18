@@ -7,6 +7,12 @@
 </head>
 <body>
     <div class="container">
+        <nav>
+            <ul>
+                <li><a href="{{ route('journalists.index') }}">Journalists</a></li>
+                <li><a href="{{ route('media.index') }}">Media</a></li>
+            </ul>
+        </nav>
         @yield('content')
     </div>
 </body>

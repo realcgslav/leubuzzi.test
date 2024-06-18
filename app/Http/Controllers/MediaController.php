@@ -3,66 +3,85 @@
 namespace App\Http\Controllers;
 
 use App\Models\Media;
+use App\Models\MediaType;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class MediaController extends Controller
 {
     public function index()
     {
         $media = Media::all();
-        return view('media.index', compact('media'));
+        $mediaTypes = MediaType::all();
+        return view('media.index', compact('media', 'mediaTypes'));
     }
 
     public function create()
     {
-        return view('media.create');
+        $mediaTypes = MediaType::all();
+        return view('media.create', compact('mediaTypes'));
     }
 
     public function store(Request $request)
     {
-        Log::info('Store method called');
-        Log::info('Request Data: ', $request->all());
-    
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'nullable|array'
         ]);
-    
-        Log::info('Validated Data: ', $data);
-    
-        $media = Media::create($data);
-        Log::info('Media Created: ', $media->toArray());
-    
+
+        Media::create($data);
+
         return redirect()->route('media.index')->with('success', 'Media created successfully.');
     }
-    
 
-    public function show(Media $media)
+    public function edit(Media $medium)
     {
-        return view('media.show', compact('media'));
+        $mediaTypes = MediaType::all();
+        return view('media.edit', ['media' => $medium, 'mediaTypes' => $mediaTypes]);
     }
 
-    public function edit(Media $media)
-    {
-        return view('media.edit', compact('media'));
-    }
-
-    public function update(Request $request, Media $media)
+    public function update(Request $request, Media $medium)
     {
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'type' => 'nullable|array'
         ]);
 
-        $media->update($data);
+        $medium->update($data);
 
         return redirect()->route('media.index')->with('success', 'Media updated successfully.');
     }
 
-    public function destroy(Media $media)
+    public function destroy(Media $medium)
     {
-        $media->delete();
+        $medium->delete();
         return redirect()->route('media.index')->with('success', 'Media deleted successfully.');
+    }
+
+    public function addType(Request $request)
+    {
+        $data = $request->validate([
+            'type' => 'required|string|max:255',
+        ]);
+
+        MediaType::create($data);
+
+        return redirect()->route('media.index')->with('success', 'Media type added successfully.');
+    }
+
+    public function editType(Request $request, MediaType $mediaType)
+    {
+        $data = $request->validate([
+            'type' => 'required|string|max:255',
+        ]);
+
+        $mediaType->update($data);
+
+        return redirect()->route('media.index')->with('success', 'Media type updated successfully.');
+    }
+
+    public function deleteType(MediaType $mediaType)
+    {
+        $mediaType->delete();
+        return redirect()->route('media.index')->with('success', 'Media type deleted successfully.');
     }
 }

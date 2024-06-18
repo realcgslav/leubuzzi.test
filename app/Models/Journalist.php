@@ -19,6 +19,11 @@ class Journalist extends Model
 
     public function media()
     {
-        return $this->belongsToMany(Media::class);
+        return $this->belongsToMany(Media::class, 'journalist_media');
+    }
+
+    public function kzPeople()
+    {
+        return $this->hasMany(KzPerson::class);
     }
 }
