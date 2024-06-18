@@ -11,5 +11,8 @@ class KzPerson extends Model
 
     protected $fillable = ['person'];
 
-    protected $table = 'kz_people'; // Ensure the correct table name is used
+    public function journalists()
+    {
+        return $this->belongsToMany(Journalist::class, 'journalist_kz_people');
+    }
 }

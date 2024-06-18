@@ -24,6 +24,6 @@ class Journalist extends Model
 
     public function kzPeople()
     {
-        return $this->hasMany(KzPerson::class);
+        return $this->belongsToMany(KzPerson::class, 'journalist_kz_people');
     }
 }

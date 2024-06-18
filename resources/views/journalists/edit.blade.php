@@ -50,7 +50,21 @@
             <label>Additional Info</label>
             <textarea name="additional_info">{{ old('additional_info', $journalist->additional_info) }}</textarea>
         </div>
+
+        <h3>Manage KZ Persons</h3>
+        <div id="kz-persons">
+            <input type="text" name="new_kz_persons[]" placeholder="New KZ Person">
+        </div>
+        <button type="button" id="add-kz-person">Add KZ Person</button>
+
         <button type="submit">Save</button>
     </form>
 
+    <script>
+        document.getElementById('add-kz-person').addEventListener('click', function() {
+            var div = document.createElement('div');
+            div.innerHTML = '<input type="text" name="new_kz_persons[]" placeholder="New KZ Person">';
+            document.getElementById('kz-persons').appendChild(div);
+        });
+    </script>
 @endsection
