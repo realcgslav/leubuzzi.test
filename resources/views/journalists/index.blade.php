@@ -5,7 +5,7 @@
         <div class="alert alert-success">{{ session('success') }}</div>
     @endif
 
-    <h1>Journalists</h1>
+    <h1>Journalists wtf</h1>
     <a href="{{ route('journalists.create') }}">Add Journalist</a>
     <table>
         <tr>
